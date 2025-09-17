@@ -1,0 +1,3 @@
+doc/src/site/sphinx/_extensions/sphinxcontrib/mermaid.py
+doc/src/site/sphinx/_extensions/sphinx_design/**
+doc/src/site/sphinx/_static/doc_staticjsmermaid_10.2.0.min.js
