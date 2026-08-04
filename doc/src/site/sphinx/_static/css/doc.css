@@ -1,5 +1,6 @@
-/* Copyright 2025 MicroEJ Corp. All rights reserved.
+/* Copyright 2025-2026 MicroEJ Corp. All rights reserved.
  * MicroEJ Corp. PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * Build: 7E4D1F7C
  */
 
 @import url('./theme.css');
@@ -197,8 +198,29 @@ body[data-theme="dark"] {
   --color-admonition-title--note: #00aec7;
 }
 
+/* Layout: make the sidebar hug the left edge and let the content area grow to
+   fill all remaining space.  The Sphinx Theme defaults to a centered layout with
+   calc-based sidebar widths that waste space on wide screens. */
 .sidebar-drawer {
-  width: calc(45% - 18.5em);
+  width: auto;
+  flex-shrink: 0;
+}
+
+.content {
+  width: auto;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.toc-drawer {
+  min-width: 15em;
+  flex-shrink: 0;
+}
+
+/* Prevent images from scaling beyond their native resolution on wide screens. */
+figure img {
+  max-width: 100%;
+  height: auto;
 }
 
 textarea {

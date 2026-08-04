@@ -1,5 +1,6 @@
-# Copyright 2025 MicroEJ Corp. All rights reserved.
+# Copyright 2025-2026 MicroEJ Corp. All rights reserved.
 # MicroEJ Corp. PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+# Build: 7E4D1F7C
 
 import os
 import sys
@@ -14,13 +15,22 @@ doc_output_folder = sys.argv[1] if len(sys.argv) >= 2 else "doc_build"
 pages_folder = "pages"
 source_folder = "."
 pip_command = [sys.executable, "-m", "pip", "install", "-r", "requirements.txt"]
-build_command = [sys.executable, "-m", "sphinx", "-b", "html", source_folder, doc_output_folder]
+build_command = [sys.executable, "-m", "sphinx", "-W", "-b", "html", source_folder, doc_output_folder]
 
 def clean_folder(folder_path):
     """Delete the specified folder and its contents."""
     if os.path.exists(folder_path):
         print(f"Cleaning folder: {folder_path}")
-        shutil.rmtree(folder_path)
+        try:
+            shutil.rmtree(folder_path)
+        except OSError:
+            # On Windows, the directory itself may be locked by the OS (e.g. Indexer, Defender).
+            # Clear its contents instead so Sphinx can rebuild into the empty directory.
+            for entry in os.scandir(folder_path):
+                if entry.is_dir(follow_symlinks=False):
+                    shutil.rmtree(entry.path)
+                else:
+                    os.remove(entry.path)
     else:
         print(f"Folder does not exist, skipping clean: {folder_path}")
 

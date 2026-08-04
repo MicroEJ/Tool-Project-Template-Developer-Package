@@ -47,7 +47,6 @@ Below is a high-level diagram illustrating the software components:
 
 .. figure:: ../images/architecture_diagram.png
 	:alt: High-level architecture diagram
-	:width: 100%
 	:align: center
 
 	High-level architecture diagram
@@ -58,7 +57,7 @@ To complement the overview above, the following summarizes the main components i
 - **Libraries**: High-level functionalities providing APIs to the applications.
 - **Kernel**: Kernel Application defining the system core behavior, including app management, services to apps, navigation, connectivity, and more.
 - **Mock**: Project containing native functions used by the Simulator to simulate the target hardware.
-- **VEE Port**: Multi-Sandbox VEE Port enabling MicroEJ VEE with all functionalities required by the framework on the target hardware.
+- **VEE Port**: Multi-Sandbox VEE Port enabling MICROEJ VEE with all functionalities required by the framework on the target hardware.
 
 The source code for these components is provided, allowing for testing and modification.
 
@@ -76,18 +75,20 @@ The package is structured as follows:
 .. code-block:: none
 
     ├── bin/
-        ├── kernel                                   # Kernel Executable directory
-        └── vd                                       # Virtual Device directory
+        ├── executable/
+            └── <target>/                            # Kernel Executable (one per target)
+        └── virtualDevice/
+            └── <target>/                            # Virtual Device (one per target)
     ├── doc/
         └── index.html                               # The entry point of the documentation
     ├── javadoc/
         └── index.html                               # The entry point of the javadoc
-    ├── repository/                                  # Offline Repository containing dependencies
+    ├── repository/                                  # Module Repository containing dependencies
     └── src/
         ├── app                                      # Application sample sources
-        ├── framework                                # Framework sources
-        ├── kernel                                   # Kernel sources
-        └── veeport                                  # VEE Port sources
+        └── vee
+            ├── kernel                               # Kernel sources (shared across targets)
+            └── <target>                             # VEE Port sources (one per target)
 
 Licensing
 ---------
@@ -95,5 +96,5 @@ Licensing
 The repository of this package is a set of modules distributed under various software licenses, including the SDK EULA and the Commercial Component License for some of them. Please consult the ``LICENSE.txt`` file attached to each module.
 
 .. 
-   | Copyright 2025 MicroEJ Corp. All rights reserved.
+   | Copyright 2025-2026 MicroEJ Corp. All rights reserved.
    | MicroEJ Corp. PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.

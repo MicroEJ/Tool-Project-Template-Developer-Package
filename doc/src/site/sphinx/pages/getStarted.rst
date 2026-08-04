@@ -13,17 +13,19 @@ The Virtual Device provided in this Developer Package contains the Applications 
 
    .. tab:: Windows
 
-      Run ``bin/vd/launcher-windows.bat``
+      Run ``bin/virtualDevice/<target>/launcher-windows.bat``
 
    .. tab:: Linux
 
-      Run ``bin/vd/launcher-linux.sh``
+      Run ``bin/virtualDevice/<target>/launcher-linux.sh``
 
    .. tab:: MacOS
 
       1. Install a JRE 11 from `Adoptium <https://adoptium.net/temurin/releases/>`_ or `Oracle <https://www.oracle.com/fr/java/technologies/downloads/>`_.
-      2. Add execution rights to the launcher script: ``chmod +x bin/vd/launcher-macos.sh``
-      3. Run ``bin/vd/launcher-macos.sh``
+      2. Add execution rights to the launcher script: ``chmod +x bin/virtualDevice/<target>/launcher-macos.sh``
+      3. Run ``bin/virtualDevice/<target>/launcher-macos.sh``
+
+Replace ``<target>`` with the name of the kernel target you want to use.
 
 Run on Simulator
 ----------------
@@ -43,5 +45,5 @@ Complete the :ref:`Hardware Setup <hardware_setup>` instructions before continui
 
 
 .. 
-   | Copyright 2025 MicroEJ Corp. All rights reserved.
+   | Copyright 2025-2026 MicroEJ Corp. All rights reserved.
    | MicroEJ Corp. PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.

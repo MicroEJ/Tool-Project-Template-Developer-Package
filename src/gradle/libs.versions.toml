@@ -1,0 +1,18 @@
+# Copyright 2025 MicroEJ Corp. All rights reserved.
+# MicroEJ Corp. PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+
+[versions]
+microej-sdk = "1.5.0"
+pack-ui = "14.4.2"
+
+[libraries]
+ej-edc = { module = "ej.api:edc", version = "1.3.7" }
+ej-bon = { module = "ej.api:bon", version = "1.4.4" }
+ej-junit = { module = "ej.library.test:junit", version = "1.12.0" }
+architecture = { group = "com.microej.architecture.I386.GNUvX_X86Linux", name = "atsauce6", version = "8.4.0" }
+pack-ui-architecture = { group = "com.microej.architecture.I386.GNUvX_X86Linux", name = "atsauce6-ui-pack", version.ref = "pack-ui" }
+
+[plugins]
+microej-application = { id = "com.microej.gradle.application", version.ref = "microej-sdk" }
+microej-base = { id = "com.microej.gradle.base", version.ref = "microej-sdk" }
+microej-repository = { id = "com.microej.gradle.module-repository", version.ref = "microej-sdk" }

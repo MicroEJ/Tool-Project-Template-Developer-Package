@@ -3,7 +3,7 @@
 Support & Resources
 ===================
 
-Get support
+Get Support
 -----------
 
 If any questions, the best starting point is to consult the `MicroEJ Forum <https://forum.microej.com/>`_. 
@@ -19,7 +19,7 @@ In both cases, please provide as much information as possible on your installed 
 
    * - **Delivery**
      - **Name**
-   * - MicroEJ SDK
+   * - MICROEJ SDK
      - SDK6 | Version 1.3.0
    * - MicroEJ Architecture 
      - ARM Cortex-M4 / IAR / Evaluation | Production version *XYZ*
