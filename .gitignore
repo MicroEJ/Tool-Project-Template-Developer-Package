@@ -4,6 +4,8 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+doc/src/site/sphinx/doc_build
+__pycache__/
 
 ### IntelliJ IDEA ###
 .idea/
@@ -29,3 +31,10 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+.kotlin
+.venv
+
+### Example projects fetched by packaging/scripts/clone_examples.py ###
+/src/vee/kernel/
+/src/vee/linux-x86/

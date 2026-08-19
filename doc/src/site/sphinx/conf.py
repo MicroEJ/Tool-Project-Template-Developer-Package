@@ -1,4 +1,4 @@
-# Copyright 2025 MicroEJ Corp. All rights reserved.
+# Copyright 2025-2026 MicroEJ Corp. All rights reserved.
 # MicroEJ Corp. PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
 
 # Configuration file for the Sphinx documentation builder.
@@ -17,7 +17,7 @@ print("Python version:", sys.version)
 print("Executable used:", sys.executable)
 
 html_title = full_title = project = "MicroEJ Documentation"
-copyright = '2025, MicroEJ Corp. Use is subject to license terms. MicroEJ is a trademark of MicroEJ Corp. All other trademarks and copyrights are the property of their respective owners'
+copyright = '2026, MicroEJ Corp. Use is subject to license terms. MicroEJ is a trademark of MicroEJ Corp. All other trademarks and copyrights are the property of their respective owners'
 author = 'MicroEJ'
 release = '1.0.0'
 

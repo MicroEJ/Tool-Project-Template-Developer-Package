@@ -1,126 +1,92 @@
 # Overview
 
-Project Template for a Customer Developer Package.
-This template comes with the following capabilities:
-- fetch and package an offline repository.
-- copy and package projects sources.
+This repository contains the project to build the <PRODUCT_NAME> Developer Package.
+
+A Developer Package is an archive that provides all the components needed for end users (primarily developers) to
+explore and get started with development with <PRODUCT_NAME>. It is structured as follows:
+
+```
+└── my-product-name
+    ├── bin
+    │   ├── executable/
+    │   │   └── <target>/     # One per kernel target
+    │   └── virtualDevice/
+    │       └── <target>/     # One per kernel target
+    ├── doc             # Documentation
+    ├── javadoc         # Javadoc
+    ├── repository      # Module repository
+    ├── src             # Sources
+    ├── CHANGELOG.md
+    └── README.md
+```
 
 # Usage
 
-To create a Developer Package Project, clone this project with::
-```shell
-git clone git@gitlab.cross:M0090_IDE/M0090_Customer-Packaging-Template.git
-```
+## Build
 
-Then go through the following sections depending on what the package should contain.
+To build the package, run the following command: `./gradlew package`.
 
-## Offline repository
+When the build is successful, the built package can be found in `packaging/build/package/`.
 
-To add an Offline Repository in the Developer Package, declare a dependency in the `packaging/build.gradle.kts` file 
-with the `offlineRepository` configuration:
-```kotlin
-"offlineRepository"("com.mycompany:my-repository:1.0.0@zip")
-```
-
-The Offline Repository must be available in a repository.
+Go through the following sections depending on what the package should contain.
 
 ## Sources
 
-All sources files located in the `src` folder are automatically packaged in the `src` folder.
+All sources files located in the `src` folder of the project are automatically packaged in the `src` folder of the
+package.
 
-### Example1: “modules at the root of /src folder” (sources are not linked together)
-
-```
-└── src
-    ├── framework
-    ├── kernel
-    ├── vee-port
-        ├── mimxrt1170-evkb-vee-port
-        ├── imx93-evk-vee-port
-        └── …
-    └── app
-```
-
-### Example2 (preferred): “multi modules projects at the root of /src folder” (sources are preconfigured to work together)
+The folder structure for the `src` directory is the following:
 
 ```
-
 └── src
     ├── app
+    ├── buildSrc                # Convention plugins and build utilities
+    └── gradle
+        ├── wrapper
     └── vee
-        ├── kernel
-        ├── vee-port
-        ├── runtime-api
-        └── framework
+        ├── kernel              # Kernel sources (shared across targets)
+        └── <target>            # VEE Port sources (one per target)
+    gradlew
+    gradlew.bat
+    settings.gradle.kts
 ```
-
-## Binaries
-
-Generated binaries are located in the `bin` folder.
-Kernel binaries must be in `.elf` format (not `.out`) to ensure compatibility with flash tools.
-
-## Documentation
-
-All sources files located in the `doc` folder are automatically packaged in the `doc` folder in HTML format.
-
-This documentation is a base for any developer package. Replace the following words:
-
-- `<framework_name>`: the framework name (e.g. VEE Wear)
-- `<target_market>`: the targeted market (e.g. smart watches)
-- `<target_hardware>`: the supported hardware(s) (e.g. Actions ATS3085S)
-- `<framework_repository>`: the name of the repository (e.g. wearRepository)
-
-To build only the documentation, run ``buildDoc`` task.
-
-### Diagrams with mermaid
-
-You can embed diagrams with the ``::mermaid`` sphinx instruction.
-
-If you want to get a PNG or SVG output instead of embedded HTML, change ``mermaid_output_format`` in ``conf.py`` file.
-If you have an error about playwright during diagrams rendering in SVG or PNG, run this command in a terminal: ``playwright install``. This currently works locally but not on CI.
-
-### Introduction
-
-In this section, add the following diagrams:
-
-- High-level architecture diagram (system): Describe the software stacks. Add details and links in the explanation below the scheme.
-- High-level functional diagram: Describe the typical data flow. Make several schemes if necessary for the different libraries.
-
-### Software Setup
-
-In this section, add the software setup instructions that are specific to the framework.
-
-### Hardware Setup
-
-In this section, list the supported hardware and the setup instructions.
-
-Use [This tool](https://gitlab.cross/M0127_CustomerCare/M0127_Documentation-Tools) to generate board images with annotations.
-
-### Get Started
-
-In this section, explain how to use the virtual device, build and run the demo applications on the simulator and on the device.
-
-### Develop
-
-In this section, explain how to use the framework in a custom application.
-
-## Resources
-
-All files located in the `resources` folder are automatically packaged in the root folder.
-The template contains the `README.md` and `CHANGELOG.md` files as example.
 
 ## Tests
 
-A testsuite is declared in the `packaging` project. This testsuite executes the following tests:
+A testsuite is set up in `packaging/src/test`. The main purpose of this testsuite is to verify that the package is
+valid, more specifically:
 
-- execute the `buildExecutable` task on the project `src/kernel` (adapt the path to your project).
-- execute the `buildFeature` task on the project `src/app` (adapt the path to your project).
+- sources bundled in the package operate as expected (code compiles in the target environment, application builds and
+  runs on the target device, etc.).
+- package content is correct (file structure, sanity checks, etc.)
 
-The tests are disabled by default. To enable them, remove the `@Disabled` annotation from the test class.
+The testsuite checks the following conditions:
+
+- the application runs on the Simulator (runs the `runOnSimulator` task on the project `src/app`).
+- the Kernel executable is built correctly (runs the `buildExecutable` task on the project `src/vee/kernel`).
+- the Feature of the application is built correctly (runs the `buildFeature` task on the project `src/app`).
+- the Kernel executable can run on the target device (runs `runOnDevice` task on the project `src/vee/kernel`).
+- the Feature can be deployed on the target device (runs the `featureDeploy` task on the project `src/app`).
+- the package file structure is correct.
+- the files of the package do not contain any unwanted terms (client names, wrong licenses, illicit terms, etc.).
+
+You can launch the testsuite by running the `test` Gradle task: `./gradlew test`.
+
+For running a specific test, filter the test with `--tests`, for example:
+
+    .\gradlew test --tests BuildRunDeployTest.testKernelBuildExecutable
+
+## Developer Package Gradle Plugin
+
+This packaging project uses the Gradle plugin `com.microej.gradle.plugin.developer-packaging` (defined in `buildSrc`)
+which provides a set of features to ease its creation and development.
+Refer to the [PACKAGING_DOC.md](./PACKAGING_DOC.md) to learn more on all these features.
 
 # Requirements
 
-N/A.
+- JDK 17 or later
+- [SDK 6](https://docs.microej.com/en/latest/SDK6UserGuide/install.html)
+- Python 3.3 or later
 
 # Dependencies
 
@@ -135,5 +101,6 @@ N/A.
 None.
 
 ---
-_Copyright 2025 MicroEJ Corp. All rights reserved._
+_Copyright 2025-2026 MicroEJ Corp. All rights reserved._
 _MicroEJ Corp. PROPRIETARY/CONFIDENTIAL. Use is subject to license terms._
+_Build: 7E4D1F7C_
