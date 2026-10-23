@@ -170,7 +170,7 @@ class DeveloperPackagingPlugin @Inject constructor(
         }
     }
 
-    private fun registerFetchModuleRepositoryTask(project: Project): TaskProvider<Task?> {
+    private fun registerFetchModuleRepositoryTask(project: Project): TaskProvider<Task> {
         val configuration = project.configurations.create("moduleRepository") {
             attributes {
                 attribute(Attribute.of(ARTIFACT_ELEMENT, String::class.java), "module-repository")
@@ -199,7 +199,7 @@ class DeveloperPackagingPlugin @Inject constructor(
         return task
     }
 
-    private fun registerJavadocTask(project: Project): TaskProvider<Task?> {
+    private fun registerJavadocTask(project: Project): TaskProvider<Task> {
         val javadocConfiguration = project.configurations.create("javadoc") {
             attributes {
                 attribute(Category.CATEGORY_ATTRIBUTE, project.objects.named(Category.DOCUMENTATION))
@@ -256,7 +256,7 @@ class DeveloperPackagingPlugin @Inject constructor(
         }
     }
 
-    private fun registerFetchDocumentationTask(project: Project): TaskProvider<Task?> {
+    private fun registerFetchDocumentationTask(project: Project): TaskProvider<Task> {
         val configuration = project.configurations.create("documentation") {
             attributes {
                 attribute(Category.CATEGORY_ATTRIBUTE, project.objects.named(Category.DOCUMENTATION))

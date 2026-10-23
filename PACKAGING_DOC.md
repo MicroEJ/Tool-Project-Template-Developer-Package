@@ -334,6 +334,20 @@ the projects in `src/` without any internet access, since all dependencies are b
 network environments
 or when you need to guarantee that the package works independently of external repository availability.
 
+### SDK Plugins in the Module Repository
+
+The Module Repository embeds the MicroEJ SDK at the version of `microej-sdk` in `src/gradle/libs.versions.toml`, as
+described in
+the [Embed MicroEJ SDK](https://docs.microej.com/en/latest/SDK6UserGuide/tutorials/developerPackage.html) section of the
+Developer Package tutorial. It carries the `com.microej.gradle:plugins` module with its dependencies, and the plugin
+marker of each SDK plugin that the projects in `src/` apply. The SDK adds about 120 MB to the Module Repository.
+
+When a project in `src/` applies another SDK plugin, declare its marker in `module-repository/build.gradle.kts`:
+
+```
+microejModule("com.microej.gradle.addon-library:com.microej.gradle.addon-library.gradle.plugin:$sdkVersion")
+```
+
 Refer to
 the [public documentation on Module Repository](https://docs.microej.com/en/latest/SDK6UserGuide/moduleRepository.html)
 to learn more on this topic.

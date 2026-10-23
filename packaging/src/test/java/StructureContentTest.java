@@ -16,6 +16,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import com.microej.test.util.TestProperties;
+
 /**
  * Tests that the structure and the content of the package complies with the expected output.
  */
@@ -66,11 +68,30 @@ public class StructureContentTest extends PackagingTest {
 	}
 
 	@Test
+	public void testSdkPluginsInModuleRepository() {
+		// Given
+		File packageDir = getTestedPackageDir();
+		String sdkVersion = TestProperties.SDK_VERSION;
+		List<String> files = List.of(
+				"repository/com/microej/gradle/plugins/" + sdkVersion + "/plugins-" + sdkVersion + ".jar",
+				getSdkPluginMarker("application", sdkVersion), getSdkPluginMarker("veeport", sdkVersion),
+				getSdkPluginMarker("mock-frontpanel", sdkVersion), getSdkPluginMarker("testsuite", sdkVersion));
+		// Then
+		assertFilesExist(packageDir, files);
+	}
+
+	@Test
 	public void testVirtualDevice() {
 		// Given
 		List<String> files = List.of("bin/virtualDevice/kernel-linux-x86/vee");
 
 		// Then
 		assertFilesExist(getTestedPackageDir(), files);
+	}
+
+	private static String getSdkPluginMarker(String pluginName, String sdkVersion) {
+		String pluginId = "com.microej.gradle." + pluginName;
+		return "repository/com/microej/gradle/" + pluginName + "/" + pluginId + ".gradle.plugin/" + sdkVersion + "/"
+				+ pluginId + ".gradle.plugin-" + sdkVersion + ".pom";
 	}
 }

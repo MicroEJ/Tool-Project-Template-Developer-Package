@@ -168,6 +168,7 @@ fun targetTestProperties(
     serialRetry: String = "3",
     outputWaitTimeout: String = "400000",
 ): Map<String, Any?> = mapOf(
+    "test.sdk.version" to libs.versions.microej.sdk.get(),
     // Serial Connection properties
     "string.output.wait.timeout" to outputWaitTimeout,
     "serial.connection.port" to serialPort,

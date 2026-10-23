@@ -66,6 +66,11 @@ public final class TestProperties {
 	/** The Jenkins user token, or {@code null} if not set. */
 	public static final String JENKINS_USER_TOKEN = System.getProperty(PROPERTY_JENKINS_USER_TOKEN);
 
+	// --- Package properties ---
+
+	/** Version of the SDK plugins that the package carries in its module repository (e.g. {@code "1.8.0"}). */
+	public static final String SDK_VERSION = System.getProperty("test.sdk.version");
+
 	// --- Target-specific properties ---
 
 	/** Gradle project name of the VEE Port (e.g. {@code "linux-x86"}, {@code "rt1170"}). */

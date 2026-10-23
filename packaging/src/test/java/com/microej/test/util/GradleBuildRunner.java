@@ -200,7 +200,7 @@ public class GradleBuildRunner {
 		File testPackageDir = TestUtil.getTestedPackageDir();
 		arguments.add("-g");
 		arguments.add(testPackageDir.toPath().resolveSibling("gradle-home").toString());
-		arguments.add("-Daccept-microej-sdk-eula-v3-1c=YES");
+		arguments.add("-Daccept-microej-sdk-eula-v4-2a=YES");
 		if ("jenkins".equals(DEPLOY_NAME)) {
 			arguments.add("-D" + PROPERTY_DEPLOY_NAME + "=" + DEPLOY_NAME);
 			addMicroejOptionIfPresent(arguments, PROPERTY_JENKINS_TRACE_FILE, JENKINS_TRACE_FILE);
