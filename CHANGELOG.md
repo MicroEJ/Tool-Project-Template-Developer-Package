@@ -9,13 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Embed the MicroEJ SDK in the module repository of the package.
-
-### Security
-
-- Stop trusting the compromised eMudhra root certificate in the documentation build.
+- Initial commit.
 
 ---
-_Copyright 2025-2026 MicroEJ Corp. All rights reserved._
+_Copyright 2026 MicroEJ Corp. All rights reserved._
 _MicroEJ Corp. PROPRIETARY/CONFIDENTIAL. Use is subject to license terms._
 _Build: 7E4D1F7C_

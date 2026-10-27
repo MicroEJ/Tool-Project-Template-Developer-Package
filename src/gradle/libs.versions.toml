@@ -2,7 +2,7 @@
 # MicroEJ Corp. PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
 
 [versions]
-microej-sdk = "1.5.0"
+microej-sdk = "1.9.0"
 pack-ui = "14.4.2"
 
 [libraries]
